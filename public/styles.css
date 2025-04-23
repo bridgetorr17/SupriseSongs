@@ -1,0 +1,21 @@
+header{
+    width: 100%;
+    background: linear-gradient(pink, rgb(220, 3, 220));
+    color: rgb(84, 34, 141);
+    text-align: center
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex1{
+    max-width: 20rem;
+}

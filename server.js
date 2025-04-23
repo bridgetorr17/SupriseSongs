@@ -1,21 +1,26 @@
 import express from 'express';
 import path from 'path';
-import mongodb from 'mongodb';
+import mongodb from 'mongodb';    
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 8000;
 
-const MongoClient = mongodb.MongoClient;
-const connectionString = '';
+// const MongoClient = mongodb.MongoClient;
+// const connectionString = '';
 
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static('public'));
 
 
 app.get('/', (request, response) => {
-
-    response.sendFile(__dirname + 'views/index.html');
+    console.log(__dirname);
+    response.sendFile(__dirname + '/views/index.html');
 });
 
 app.post('/addConcert', (request, response) => {
@@ -30,4 +35,3 @@ app.listen(PORT, function(){
     console.log(`listening on port ${PORT}`)
 });
 
-module.exports = app;
