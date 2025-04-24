@@ -1,3 +1,7 @@
+/*
+LAYOUTS
+*/
+
 header{
     width: 100%;
     background: linear-gradient(pink, rgb(220, 3, 220));
@@ -16,6 +20,49 @@ form{
     flex-direction: column;
 }
 
+form > section{
+    width: 80%;
+    padding: 0.5rem;
+}
+
+/*
+FLEX
+*/
+
 .flex1{
-    max-width: 20rem;
+    text-align: center;
+    border: 1px solid blueviolet;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+
+    max-width: 23%;
+}
+
+.flex2{
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/*
+MEDIA
+*/
+
+form img{
+    width: 3rem;
+}
+
+button{
+    width: 25%;
+    background-color: rgb(205, 43, 226);
+    color: rgb(255, 255, 255);
+    border: 0.25rem solid rgb(188, 118, 218);
+    border-radius: 1rem;;
+}
+
+/*
+TEXT
+*/
+h2{
+    color: rgb(116, 0, 116);
 }

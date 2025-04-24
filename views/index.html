@@ -14,23 +14,25 @@
         <section class="flex1">
             <h2>Add the Suprise Songs from your Concert</h2>
             <form action="addConcert">
-                <section>
-                    <label for="guitarSong">Guitar Song or Mashup</label>
-                    <input type="text" name="guitarSong">
+                <section class="flex2">
+                    <label for="guitarSong"><img src="/images/guitar.png" alt="Guitar Song(s)"></label>
+                    <input type="text" name="guitarSong" placeholder="Guitar Song(s)">
+                </section>
+                <section class="flex2">
+                    <label for="pianoSong"><img src="/images/piano.png" alt="Piano Song(s)"></label>
+                    <input type="text" name="pianoSong" placeholder="Piano Song(s)">
                 </section>
                 <section>
-                    <label for="pianoSong">Piano Song or Mashup</label>
-                    <input type="text" name="pianoSong">
+                    <button id="submit">Add Songs</button>
                 </section>
-                <button>Add Songs</button>
             </form>
         </section>
         <section class="flex1">
-            <h2>Vote On your Favorite Concert</h2>
+            <h2>Vote On your Favorite Suprise Song Combination</h2>
             <!--.ejs for voting based on suprise songs-->
         </section>
         <section class="flex1">
-            <h2>Suprise Songs by the Album</h2>
+            <h2>Suprise Songs Votes, by the Album</h2>
             <!--.ejs for listing suprise songs by the album-->
         </section>
     </main>
