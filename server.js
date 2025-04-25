@@ -35,7 +35,6 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
                 .find()
                 .toArray()
                 .then(results => {
-                    console.log(results);
                     response.render('index.ejs', {concerts : results});
                 })
                 .catch(error => console.error(error));
@@ -43,10 +42,13 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
         
         app.post('/addConcert', (request, response) => {
             console.log('positng a new concert!');
-            console.log(request.body);
+
+            const concert = request.body;
+            concert['votes'] = 0;
+            console.log(concert);
 
             concertCollection
-                .insertOne(request.body)
+                .insertOne(concert)
                 .then(result => {
                     response.redirect('/');
                     console.log('reloaded');
