@@ -44,8 +44,8 @@
                                 <span><%= concerts[i].pianoSong %></span>
                             </section>
                             <section class="flex2">
-                                <img src="/images/hearts.png" alt="like button">
-                                <span><%= concerts[i].votes%></span>
+                                <img id="<%=concerts[i].concertName%>" class="likeButton" src="/images/hearts.png" alt="like button">
+                                <span id="<%= concerts[i].concertName.replace(/\s+/g, '_') %>_votes"></span>
                             </section>
                         </li>
                     <% } %>
@@ -57,5 +57,6 @@
             </section>
         </div>
     </main>
+    <script src="/main.js"></script>
 </body>
 </html>

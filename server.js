@@ -3,10 +3,9 @@ import path from 'path';
 import mongodb from 'mongodb';  
 import mongoose from 'mongoose';  
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import {ObjectId} from 'mongodb';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const MongoClient = mongodb.MongoClient;
 
 const app = express();
@@ -19,7 +18,6 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
         const db = client.db('SupriseSongs');
         const concertCollection = db.collection('Concerts');
         const albumCollection = db.collection('Albums');
-        console.log('connected collections');
 
         //MIDDLEWARE
         app.set('view engine', 'ejs');
@@ -29,8 +27,6 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
 
         //ROUTES
         app.get('/', (request, response) => {
-            //response.sendFile(__dirname + '/views/index.html');
-
             concertCollection
                 .find()
                 .toArray()
@@ -41,23 +37,36 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
         });
         
         app.post('/addConcert', (request, response) => {
-            console.log('positng a new concert!');
-
             const concert = request.body;
             concert['votes'] = 0;
-            console.log(concert);
 
             concertCollection
                 .insertOne(concert)
                 .then(result => {
                     response.redirect('/');
-                    console.log('reloaded');
                 })
                 .catch(error => console.error(error))
         });
         
-        app.put('/vote', (request, response) => {
-        
+        app.put('/like', (request, response) => {
+            const concert = request.body.concert.trim();
+
+            concertCollection.findOneAndUpdate(
+                { concertName: concert},
+                { $inc: {votes: 1}},
+                { returnDocument: 'after'}
+            )
+            .then(result => {
+                if(result.votes){
+                    response.status(200).json(result.votes);
+                }else{
+                    response.status(404).json({ message: 'Concert not found' });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                response.status(500).json({error: 'Internal server error'});
+            })
         });
 
         app.listen(PORT, function(){
