@@ -14,23 +14,36 @@
         <div class="flex1">
             <section class="flex3">
                 <h2>Add the Suprise Songs from your Concert</h2>
-                <form action="addConcert">
-                    <section class="flex2">
+                <form action="/addConcert" method="POST">
+                    <fieldset class="flex2">
                         <label for="guitarSong"><img src="/images/guitar.png" alt="Guitar Song(s)"></label>
                         <input type="text" name="guitarSong" placeholder="Guitar Song(s)">
-                    </section>
-                    <section class="flex2">
+                    </fieldset>
+                    <fieldset class="flex2">
                         <label for="pianoSong"><img src="/images/piano.png" alt="Piano Song(s)"></label>
                         <input type="text" name="pianoSong" placeholder="Piano Song(s)">
-                    </section>
-                    <section>
+                    </fieldset>
+                    <fieldset>
+                        <label for="concertName"></label>
+                        <input type="text" name="concertName" placeholder="Which Concert?">
+                    </fieldset>
+                    <fieldset>
                         <button id="submit">Add Songs</button>
-                    </section>
+                    </fieldset>
                 </form>
             </section>
             <section class="flex3">
                 <h2>Vote On your Favorite Suprise Song Combination</h2>
                 <!--.ejs for voting based on suprise songs-->
+                <ol class="flex3">
+                    <% for(let i=0; i < concerts.length; i++){%>
+                        <li class="flex3">
+                            <h4><%= concerts[i].concertName %></h4>
+                            <span><%= concerts[i].guitarSong %></span>
+                            <span><%= concerts[i].pianoSong %></span>
+                        </li>
+                    <% } %>
+                </ol>
             </section>
             <section class="flex3">
                 <h2>Suprise Songs Votes, by the Album</h2>

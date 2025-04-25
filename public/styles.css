@@ -20,9 +20,10 @@ form{
     flex-direction: column;
 }
 
-form > section{
+form > fieldset{
     width: 80%;
     padding: 0.5rem;
+    border: 0px solid black;
 }
 
 /*
@@ -70,6 +71,10 @@ TEXT
 */
 h2{
     color: rgb(116, 0, 116);
+}
+
+h4{
+    margin: 0;
 }
 
 /*
