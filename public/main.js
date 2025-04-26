@@ -1,4 +1,6 @@
 const likeButtons = document.querySelectorAll('.likeButton');
+const popupButton = document.querySelector('#popup');
+const popupClose = document.querySelector('#popupClose');
 
 likeButtons.forEach(button => {
     button.addEventListener('click', _ => {
@@ -39,3 +41,13 @@ function sortConcertList(){
 
     concertListArr.forEach(item => concertList.appendChild(item));
 }
+
+popupButton.addEventListener('click', _ => {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popupInfo").style.display = "block";
+});
+
+popupClose.addEventListener('click', _ => {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popupInfo").style.display = "none";
+})
