@@ -11,7 +11,7 @@
         <h1>Surprise Songs at the Eras Tour</h1>
     </header>
     <main>
-        <div class="flex1 border">
+        <div class="flex1">
             <section class="flex1 border">
                 <h2>Add the Suprise Songs from your Concert</h2>
                 <form action="/addConcert" method="POST">
@@ -38,23 +38,23 @@
                 <ul id="concertListRanked">
                     <% for(let i=0; i < concerts.length; i++){%>
                         <li class="flex2">
-                            <section class="flex1">
+                            <section class="flex1 concertLeft">
                                 <h4><%= concerts[i].concertName %></h4>
                                 <span><%= concerts[i].guitarSong %></span>
                                 <span><%= concerts[i].pianoSong %></span>
                             </section>
-                            <section class="flex2">
+                            <section class="flex2 concertRight">
                                 <img id="<%=concerts[i].concertName%>" class="likeButton" src="/images/hearts.png" alt="like button">
-                                <span id="<%= concerts[i].concertName.replace(/\s+/g, '_') %>_votes"><%= concerts[i].votes %></span>
+                                <span id="<%= concerts[i].concertName.replace(/\s+/g, '_') %>_votes" class="bold"><%= concerts[i].votes %></span>
                             </section>
                         </li>
                     <% } %>
                 </ul>
             </section>
-            <section class="flex3 border">
+            <!-- <section class="flex3 border">
                 <h2>Suprise Songs Votes, by the Album</h2>
-                <!--.ejs for listing suprise songs by the album-->
-            </section>
+                .ejs for listing suprise songs by the album
+            </section> -->
         </div>
     </main>
     <script src="/main.js"></script>

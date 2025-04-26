@@ -34,7 +34,8 @@ function sortConcertList(){
         const aVotes = a.querySelector('span[id$="_votes"]').textContent;
         const bVotes = b.querySelector('span[id$="_votes"]').textContent;
         return bVotes - aVotes;
-    });
     
+    });
+
     concertListArr.forEach(item => concertList.appendChild(item));
 }

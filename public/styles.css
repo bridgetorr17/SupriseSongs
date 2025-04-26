@@ -1,4 +1,13 @@
 /*
+PAGE
+*/
+main{
+    background-image: url(/images/background.jpg);
+}
+
+
+
+/*
 LAYOUTS
 */
 div{
@@ -24,9 +33,14 @@ form{
 }
 
 form > fieldset{
-    width: 80%;
+    width: 100%;
     padding: 0.5rem;
     border: 0px solid black;
+}
+
+form, ul{
+    max-width: 80rem;
+    align-self: center;
 }
 
 /*
@@ -40,15 +54,15 @@ FLEX
     margin: 2rem;
 }
 
+.flex1 .concertLeft{
+    text-align: start;
+}
+
 .flex2{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-}
-
-.flex2 > img{
-    height: 3rem;
 }
 
 /*
@@ -57,14 +71,24 @@ MEDIA
 
 img{
     width: 3rem;
+    margin: 1rem;
 }
 
 button{
-    width: 25%;
+    width: 100%;
     background-color: rgb(205, 43, 226);
     color: rgb(255, 255, 255);
     border: 0.25rem solid rgb(188, 118, 218);
     border-radius: 1rem;;
+}
+
+.likeButton {
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+  .likeButton:hover {
+    transform: scale(1.5);
 }
 
 /*
@@ -79,10 +103,19 @@ h4{
 }
 
 .border{
-    border: 1px solid blueviolet;
     border-radius: 1rem;
+    background: linear-gradient(pink, rgb(116, 0, 116));
 }
 
 li{
     list-style: none;
+}
+
+input{
+    border-radius: 0.5rem;
+    border: 0.25rem solid rgb(188, 118, 218);
+}
+
+.bold{
+    font-weight: 700;
 }
