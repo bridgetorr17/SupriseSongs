@@ -35,7 +35,7 @@
             <section class="flex1 border">
                 <h2>Vote On your Favorite Suprise Song Combination</h2>
                 <!--.ejs for voting based on suprise songs-->
-                <ul>
+                <ul id="concertListRanked">
                     <% for(let i=0; i < concerts.length; i++){%>
                         <li class="flex2">
                             <section class="flex1">
@@ -45,7 +45,7 @@
                             </section>
                             <section class="flex2">
                                 <img id="<%=concerts[i].concertName%>" class="likeButton" src="/images/hearts.png" alt="like button">
-                                <span id="<%= concerts[i].concertName.replace(/\s+/g, '_') %>_votes"></span>
+                                <span id="<%= concerts[i].concertName.replace(/\s+/g, '_') %>_votes"><%= concerts[i].votes %></span>
                             </section>
                         </li>
                     <% } %>

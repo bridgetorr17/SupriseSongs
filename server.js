@@ -31,6 +31,7 @@ MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
                 .find()
                 .toArray()
                 .then(results => {
+                    results.sort((a,b) => b.votes - a.votes);
                     response.render('index.ejs', {concerts : results});
                 })
                 .catch(error => console.error(error));

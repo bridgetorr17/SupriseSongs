@@ -17,9 +17,24 @@ likeButtons.forEach(button => {
         })
         .then(updatedValue => {
             document.querySelector(`#${concertName.replace(/\s+/g, '_')}_votes`).innerHTML = updatedValue;
+
+            sortConcertList();
         })
         .catch(error => {
             console.error("Error updaing item:", error);
         })
     })
 })
+
+function sortConcertList(){
+    let concertList = document.getElementById('concertListRanked');
+    let concertListArr = Array.from(concertList.children);
+
+    concertListArr.sort((a,b) => {
+        const aVotes = a.querySelector('span[id$="_votes"]').textContent;
+        const bVotes = b.querySelector('span[id$="_votes"]').textContent;
+        return bVotes - aVotes;
+    });
+    
+    concertListArr.forEach(item => concertList.appendChild(item));
+}
