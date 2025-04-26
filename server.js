@@ -5,13 +5,16 @@ import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
 import {ObjectId} from 'mongodb';
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const MongoClient = mongodb.MongoClient;
 
 const app = express();
 const PORT = 8000;
 
-MongoClient.connect('mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5payw8y.mongodb.net/Concerts?retryWrites=true&w=majority&appName=Cluster0')
+MongoClient.connect(process.env.URI)
     .then(client => {
         console.log("connected to database");
     
