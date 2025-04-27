@@ -77,3 +77,5 @@ MongoClient.connect("mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
     .catch(() => {
         console.log('connection failed');
     });
+
+module.exports = app;
