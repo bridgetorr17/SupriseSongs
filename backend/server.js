@@ -12,7 +12,7 @@ const MongoClient = mongodb.MongoClient;
 const app = express();
 const PORT = 8000;
 
-MongoClient.connect("mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5payw8y.mongodb.net/Concerts?retryWrites=true&w=majority&appName=Cluster0")
+MongoClient.connect(process.env.MONGODB_URI)
     .then(client => {
         console.log("connected to database");
     
@@ -77,5 +77,3 @@ MongoClient.connect("mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5pay
     .catch(() => {
         console.log('connection failed');
     });
-
-module.exports = app;
