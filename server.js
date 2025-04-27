@@ -14,7 +14,7 @@ const MongoClient = mongodb.MongoClient;
 const app = express();
 const PORT = 8000;
 
-MongoClient.connect(process.env.URI)
+MongoClient.connect(process.env.MONGODB_URI)
     .then(client => {
         console.log("connected to database");
     
