@@ -15,10 +15,9 @@ MongoClient.connect(process.env.MONGODB_URI)
     
         const db = client.db('SupriseSongs');
         const concertCollection = db.collection('Concerts');
+
         //MIDDLEWARE
-        app.set('view engine', 'ejs');
         app.use(express.json());
-        app.use(express.static('../frontend/public'));
         app.use(express.urlencoded({ extended: true}));
 
         //ROUTES
@@ -28,7 +27,8 @@ MongoClient.connect(process.env.MONGODB_URI)
                 .toArray()
                 .then(results => {
                     results.sort((a,b) => b.votes - a.votes);
-                    response.render('index.ejs', {concerts : results});
+                    response.json(results);
+                    //response.render('index.ejs', {concerts : results});
                 })
                 .catch(error => console.error(error));
         });
