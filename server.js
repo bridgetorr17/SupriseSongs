@@ -73,11 +73,12 @@ MongoClient.connect(process.env.MONGODB_URI)
             })
         });
 
-        app.listen(PORT, function(){
-            console.log(`listening on port ${PORT}`)
-        });
+        // app.listen(PORT, function(){
+        //     console.log(`listening on port ${PORT}`)
+        // });
     })
     .catch(() => {
         console.log('connection failed');
     });
 
+module.exports = app;
