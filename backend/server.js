@@ -1,9 +1,7 @@
 import express from 'express';
 import path from 'path';
 import mongodb from 'mongodb';  
-import mongoose from 'mongoose';  
 import { fileURLToPath } from 'url';
-import {ObjectId} from 'mongodb';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -14,18 +12,17 @@ const MongoClient = mongodb.MongoClient;
 const app = express();
 const PORT = 8000;
 
-MongoClient.connect(process.env.MONGODB_URI)
+MongoClient.connect("mongodb+srv://bridgetorr1902:aGyiBmU0BQSZs1g6@cluster0.5payw8y.mongodb.net/Concerts?retryWrites=true&w=majority&appName=Cluster0")
     .then(client => {
         console.log("connected to database");
     
         const db = client.db('SupriseSongs');
         const concertCollection = db.collection('Concerts');
-        const albumCollection = db.collection('Albums');
-
         //MIDDLEWARE
-        app.set('views', path.join(__dirname), 'views');
+        app.set('views', '../frontend/views')
+        app.set('view engine', 'ejs');
         app.use(express.json());
-        app.use(express.static('public'));
+        app.use(express.static('../frontend/public'));
         app.use(express.urlencoded({ extended: true}));
 
         //ROUTES
@@ -80,4 +77,3 @@ MongoClient.connect(process.env.MONGODB_URI)
     .catch(() => {
         console.log('connection failed');
     });
-
