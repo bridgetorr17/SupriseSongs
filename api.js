@@ -1,27 +1,29 @@
-const express = require('express');
-const path = require('path');
-const mongodb = require('mongodb');
-const dotenv = require('dotenv');
+import express, {Router} from "express";
+import serverless from "serverless-http";
+import path from "path";
+import mongodb from "mongodb";
+import dotenv from "dotenv";
 dotenv.config();
 
 const MongoClient = mongodb.MongoClient;
 
-const app = express();
-const PORT = 8000;
+const api = express();
+const router = Router();
+//const PORT = 8000;
 
 MongoClient.connect(process.env.MONGODB_URI)
     .then(client => {
-        console.log("connected to database");
     
         const db = client.db('SupriseSongs');
         const concertCollection = db.collection('Concerts');
 
         //MIDDLEWARE
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: true}));
+        api.use(express.json());
+        api.use(express.urlencoded({ extended: true}));
 
         //ROUTES
-        app.get('/', (request, response) => {
+        console.log("connected to database and ready for route calls");
+        router.get('/', (request, response) => {
             concertCollection
                 .find()
                 .toArray()
@@ -33,7 +35,7 @@ MongoClient.connect(process.env.MONGODB_URI)
                 .catch(error => console.error(error));
         });
         
-        app.post('/addConcert', (request, response) => {
+        router.post('/addConcert', (request, response) => {
             const concert = request.body;
             concert['votes'] = 0;
 
@@ -45,7 +47,7 @@ MongoClient.connect(process.env.MONGODB_URI)
                 .catch(error => console.error(error))
         });
         
-        app.put('/like', (request, response) => {
+        router.put('/like', (request, response) => {
             const concert = request.body.concert.trim();
 
             concertCollection.findOneAndUpdate(
@@ -66,12 +68,15 @@ MongoClient.connect(process.env.MONGODB_URI)
             })
         });
 
-        app.listen(PORT, function(){
-            console.log(`listening on port ${PORT}`)
-        });
+        api.use('/api/', router);
 
-        module.exports = app;
+        // api.listen(PORT, function(){
+        //     console.log(`listening on port ${PORT}`)
+        // });
     })
     .catch(() => {
         console.log('connection failed');
     });
+
+
+export const handler = serverless(api);
