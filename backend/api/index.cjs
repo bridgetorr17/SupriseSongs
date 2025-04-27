@@ -1,12 +1,9 @@
-import express from 'express';
-import path from 'path';
-import mongodb from 'mongodb';  
-import { fileURLToPath } from 'url';
-
-import * as dotenv from 'dotenv';
+const express = require('express');
+const path = require('path');
+const mongodb = require('mongodb');
+const dotenv = require('dotenv');
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
 const MongoClient = mongodb.MongoClient;
 
 const app = express();
@@ -19,7 +16,6 @@ MongoClient.connect(process.env.MONGODB_URI)
         const db = client.db('SupriseSongs');
         const concertCollection = db.collection('Concerts');
         //MIDDLEWARE
-        app.set('views', '../frontend/views')
         app.set('view engine', 'ejs');
         app.use(express.json());
         app.use(express.static('../frontend/public'));
@@ -73,6 +69,8 @@ MongoClient.connect(process.env.MONGODB_URI)
         app.listen(PORT, function(){
             console.log(`listening on port ${PORT}`)
         });
+
+        module.exports = app;
     })
     .catch(() => {
         console.log('connection failed');
