@@ -77,3 +77,5 @@ MongoClient.connect(process.env.MONGODB_URI)
     .catch(() => {
         console.log('connection failed');
     });
+
+    module.exports = app;
