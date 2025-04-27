@@ -8,8 +8,8 @@ dotenv.config();
 const MongoClient = mongodb.MongoClient;
 
 const api = express();
-const router = Router();
-//const PORT = 8000;
+//const router = Router();
+const PORT = 8000;
 
 MongoClient.connect(process.env.MONGODB_URI)
     .then(client => {
@@ -23,7 +23,7 @@ MongoClient.connect(process.env.MONGODB_URI)
 
         //ROUTES
         console.log("connected to database and ready for route calls");
-        router.get('/', (request, response) => {
+        api.get('/', (request, response) => {
             concertCollection
                 .find()
                 .toArray()
@@ -35,7 +35,7 @@ MongoClient.connect(process.env.MONGODB_URI)
                 .catch(error => console.error(error));
         });
         
-        router.post('/addConcert', (request, response) => {
+        api.post('/addConcert', (request, response) => {
             const concert = request.body;
             concert['votes'] = 0;
 
@@ -47,7 +47,7 @@ MongoClient.connect(process.env.MONGODB_URI)
                 .catch(error => console.error(error))
         });
         
-        router.put('/like', (request, response) => {
+        api.put('/like', (request, response) => {
             const concert = request.body.concert.trim();
 
             concertCollection.findOneAndUpdate(
@@ -68,15 +68,13 @@ MongoClient.connect(process.env.MONGODB_URI)
             })
         });
 
-        api.use('/api/', router);
-
-        // api.listen(PORT, function(){
-        //     console.log(`listening on port ${PORT}`)
-        // });
+        api.listen(PORT, function(){
+            console.log(`listening on port ${PORT}`)
+        });
     })
     .catch(() => {
         console.log('connection failed');
     });
 
 
-export const handler = serverless(api);
+//export const handler = serverless(api);
