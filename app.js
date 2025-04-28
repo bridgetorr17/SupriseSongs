@@ -28,8 +28,8 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/about', (req, res) => {
-    res.send('about route');
+app.post('/addConcert', (req, res) => {
+    const concert = req.body;
 })
 
 app.listen(PORT, () => {
