@@ -16,8 +16,8 @@ app.get('/', async (req, res) => {
         await client.connect()
 
         let concertCollection = client.db('SupriseSongs').collection('Concerts');
-        let results = await concertCollection.find().toArray()
-        
+        let results = await concertCollection.find().toArray();
+        results.sort((a,b) => b.votes - a.votes);
         res.send(JSON.stringify(results));
     }
     catch(error){
