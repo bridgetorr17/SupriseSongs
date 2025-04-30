@@ -38,7 +38,7 @@ app.post('/addConcert', async (req, res) => {
 
         let concertCollection = client.db('SupriseSongs').collection('Concerts');
         await concertCollection.insertOne(concert);
-        res.redirect('/');
+        res.status(200).send('Concert added');
     }
     catch(error){
         console.error(error);
