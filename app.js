@@ -9,6 +9,7 @@ const mongoURI = process.env.MONGO_URI;
 const client = new MongoClient(mongoURI);
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 app.get('/', async (req, res) => {
@@ -16,8 +17,8 @@ app.get('/', async (req, res) => {
         await client.connect()
 
         let concertCollection = client.db('SupriseSongs').collection('Concerts');
-        let results = await concertCollection.find().toArray()
-        
+        let results = await concertCollection.find().toArray();
+        results.sort((a,b) => b.votes - a.votes);
         res.send(JSON.stringify(results));
     }
     catch(error){
@@ -28,8 +29,46 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/about', (req, res) => {
-    res.send('about route');
+app.post('/addConcert', async (req, res) => {
+    const concert = req.body;
+    concert['votes'] = 0;
+
+    try{
+        await client.connect();
+
+        let concertCollection = client.db('SupriseSongs').collection('Concerts');
+        await concertCollection.insertOne(concert);
+        res.status(200).send('Concert added');
+    }
+    catch(error){
+        console.error(error);
+    }
+    finally{
+        await client.close();
+    }
+});
+
+app.put('/like', async (req, res) => {
+    const concert = req.body.concert.trim();
+    
+    try{
+        await client.connect();
+
+        let concertCollection = client.db('SupriseSongs').collection('Concerts');
+        let result = await concertCollection.findOneAndUpdate(
+            { concertName: concert},
+            { $inc: {votes: 1}},
+            {returnDocument: 'after'} 
+        );
+
+        res.status(200).json(result.votes);
+    }
+    catch(error){
+        console.error(error);
+    }
+    finally{
+        await client.close();
+    }
 })
 
 app.listen(PORT, () => {
