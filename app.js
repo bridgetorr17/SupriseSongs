@@ -9,6 +9,7 @@ const mongoURI = process.env.MONGO_URI;
 const client = new MongoClient(mongoURI);
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 app.get('/', async (req, res) => {
