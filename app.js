@@ -37,8 +37,20 @@ app.post('/addConcert', async (req, res) => {
         await client.connect();
 
         let concertCollection = client.db('SupriseSongs').collection('Concerts');
-        await concertCollection.insertOne(concert);
-        res.status(200).send('Concert added');
+
+        const alreadyExists = await concertCollection.findOne({concertName : concert['concertName']})
+        console.log(concert['concertName']);
+        console.log(`does this exist yet? ${alreadyExists}`);
+
+        if(alreadyExists === null){
+            await concertCollection.insertOne(concert);
+            console.log('concert added');
+            res.status(201).send('Concert added');
+        }
+        else{
+            console.log('concert already exists in db');
+            res.status(200).send('Concert already exists in database');
+        }
     }
     catch(error){
         console.error(error);
